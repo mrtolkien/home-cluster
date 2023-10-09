@@ -1,0 +1,14 @@
+---
+kubernetes:
+  children:
+    master:
+      hosts:
+        debian:
+          ansible_user: tolki
+          ansible_host: 192.168.1.120
+        debian-win-0:
+          ansible_user: tolki
+          ansible_host: 192.168.1.124
+        debian-win-1:
+          ansible_user: tolki
+          ansible_host: 192.168.1.125
