@@ -12,7 +12,7 @@ spec:
       version: 2.18.0
       sourceRef:
         kind: HelmRepository
-        name: pihole-charts
+        name: pihole
         namespace: flux-system
       interval: 15m
   values:
@@ -98,26 +98,28 @@ spec:
       # annotations:
       #   metallb.universe.tf/allow-shared-ip: pihole-svc
 
-    virtualHost: pi.hole
+    virtualHost: pihole
 
     # -- Configuration for the Ingress
     ingress:
-      # -- Generate a Ingress resource
       enabled: true
-      # -- Annotations for the ingress
-      path: /
-      ingressClassName: nginx-internal
+      # path: /
+      ingressClassName: internal
       annotations:
         hajimari.io/enable: "true"
         hajimari.io/appName: "Pihole"
         hajimari.io/info: "Pihole system"
         hajimari.io/icon: "card-off"
       hosts:
-        - pi.hole
+        - pihole
+        - &host "pihole.${SECRET_DOMAIN}"
       tls:
-        - secretName: acme-crt-secret-sparks-codes
-          hosts:
-            - pi.hole
+        - hosts:
+            - *host
+      # tls:
+      #   - secretName: acme-crt-secret-sparks-codes
+      #     hosts:
+      #       - pihole
 
     # -- `spec.PersitentVolumeClaim` configuration
     # TODO Review that (use local storage?)
