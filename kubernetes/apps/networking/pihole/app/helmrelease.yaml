@@ -103,7 +103,7 @@ spec:
     # -- Configuration for the Ingress
     ingress:
       enabled: true
-      # path: /
+      path: /
       ingressClassName: internal
       annotations:
         hajimari.io/enable: "true"
@@ -122,7 +122,7 @@ spec:
       #       - pihole
 
     # -- `spec.PersitentVolumeClaim` configuration
-    # TODO Review that (use local storage?)
+
     # persistentVolumeClaim:
     #   # -- set to true to use pvc
     #   enabled: true
