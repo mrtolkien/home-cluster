@@ -40,6 +40,8 @@ spec:
         matchNames:
           - default
           - monitoring
+          - networking
+          - media
     ingress:
       main:
         enabled: true
