@@ -64,38 +64,6 @@ spec:
       # annotations:
       #   metallb.universe.tf/allow-shared-ip: pihole-svc
 
-    virtualHost: pihole
-
-    # -- Configuration for the Ingress
-    ingress:
-      enabled: true
-      path: /
-      ingressClassName: internal
-      annotations:
-        hajimari.io/enable: "true"
-        hajimari.io/appName: "Pihole"
-        hajimari.io/info: "Pihole system"
-        hajimari.io/icon: "card-off"
-      hosts:
-        - pihole
-        - &host "pihole.${SECRET_DOMAIN}"
-      tls:
-        - secretName: acme-crt-secret-sparks-codes
-          hosts:
-            - pihole
-            - *host
-
-    # -- `spec.PersitentVolumeClaim` configuration
-
-    # persistentVolumeClaim:
-    #   # -- set to true to use pvc
-    #   enabled: true
-    #   # -- specify an existing `PersistentVolumeClaim` to use
-    #   existingClaim: pihole-data-pvc
-    #   accessModes:
-    #     - ReadWriteMany
-    #   size: "2Gi"
-
     # TODO -> Encrypt password with secrets
     # adminPassword: ${NETWORKING_PIHOLE_ADMIN_PASSWORD}
     adminPassword: PIHOLEPASSWORD
@@ -288,14 +256,29 @@ spec:
           limits:
             memory: 128Mi
 
-    podDnsConfig:
-      enabled: true
-      policy: "None"
-      nameservers:
-        - 192.168.1.11
+    virtualHost: pihole
 
-    # tolerations:
-    #   - key: dns-master
-    #     operator: Equal
-    #     value: "active"
-    #     effect: NoSchedule
+    # -- Configuration for the Ingress
+    ingress:
+      enabled: true
+      path: /
+      ingressClassName: internal
+      annotations:
+        hajimari.io/enable: "true"
+        hajimari.io/appName: "Pihole"
+        hajimari.io/info: "Pihole system"
+        hajimari.io/icon: "card-off"
+      hosts:
+        - pihole
+        - &host "pihole.${SECRET_DOMAIN}"
+      tls:
+        - secretName: acme-crt-secret-sparks-codes
+          hosts:
+            - pihole
+            - *host
+
+    # podDnsConfig:
+    #   enabled: true
+    #   policy: "None"
+    #   nameservers:
+    #     - 192.168.1.11
